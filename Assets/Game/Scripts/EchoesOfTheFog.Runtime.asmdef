@@ -1,0 +1,6 @@
+{
+  "name": "EchoesOfTheFog.Runtime",
+  "rootNamespace": "EchoesOfTheFog",
+  "references": [],
+  "autoReferenced": true
+}

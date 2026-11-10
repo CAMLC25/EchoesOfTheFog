@@ -1,0 +1,6 @@
+{
+  "name": "EchoesOfTheFog.Editor",
+  "rootNamespace": "EchoesOfTheFog.Editor",
+  "references": ["EchoesOfTheFog.Runtime"],
+  "includePlatforms": ["Editor"]
+}

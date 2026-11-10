@@ -1,0 +1,8 @@
+{
+  "name": "EchoesOfTheFog.EditModeTests",
+  "rootNamespace": "EchoesOfTheFog.Tests",
+  "references": ["EchoesOfTheFog.Runtime"],
+  "includePlatforms": ["Editor"],
+  "optionalUnityReferences": ["TestAssemblies"],
+  "autoReferenced": false
+}
