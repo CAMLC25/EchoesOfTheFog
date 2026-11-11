@@ -8,9 +8,10 @@ namespace EchoesOfTheFog.Player
     {
         [SerializeField] private InputActionAsset actions;
         private InputActionAsset instance;
-        private InputAction move, look, sprint, aim, jump, releaseCursor, captureCursor;
+        private InputAction move, look, sprint, aim, jump, reload, releaseCursor, captureCursor;
         private bool controlsEnabled = true;
         private bool jumpQueued;
+        private bool suppressFireUntilRelease;
 
         public bool CursorCaptured { get; private set; }
         public bool CanControl => isActiveAndEnabled && controlsEnabled && CursorCaptured;
@@ -19,6 +20,8 @@ namespace EchoesOfTheFog.Player
         public bool LookUsesPointer => look?.activeControl?.device is Pointer;
         public bool SprintHeld => CanControl && sprint.IsPressed();
         public bool AimHeld => CanControl && aim.IsPressed();
+        public bool FireHeld => CanControl && !suppressFireUntilRelease && captureCursor.IsPressed();
+        public bool ReloadPressed => CanControl && reload != null && reload.WasPressedThisFrame();
 
         private void Awake()
         {
@@ -36,6 +39,7 @@ namespace EchoesOfTheFog.Player
             sprint = map.FindAction("Sprint", true);
             aim = map.FindAction("Aim", true);
             jump = map.FindAction("Jump", true);
+            reload = map.FindAction("Reload", false);
             jump.performed += OnJump;
             releaseCursor = map.FindAction("ReleaseCursor", true);
             captureCursor = map.FindAction("Attack", true);
@@ -51,6 +55,7 @@ namespace EchoesOfTheFog.Player
         private void Update()
         {
             if (instance == null) return;
+            if (!captureCursor.IsPressed()) suppressFireUntilRelease = false;
             if (releaseCursor.WasPressedThisFrame()) SetCursorCaptured(false);
             else if (!CursorCaptured && controlsEnabled && captureCursor.WasPressedThisFrame()) SetCursorCaptured(true);
         }
@@ -61,6 +66,7 @@ namespace EchoesOfTheFog.Player
             Cursor.lockState = CursorCaptured ? CursorLockMode.Locked : CursorLockMode.None;
             Cursor.visible = !CursorCaptured;
             if (!CursorCaptured) jumpQueued = false;
+            else suppressFireUntilRelease = captureCursor.IsPressed();
         }
 
         private void OnJump(InputAction.CallbackContext context)

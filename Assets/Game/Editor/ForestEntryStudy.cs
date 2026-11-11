@@ -27,9 +27,7 @@ namespace EchoesOfTheFog.Editor
         {
             RequireBatch();
             EnsureFolders();
-            const string archive = "Assets/Game/Scenes/Archive/AssetValidation_BeforeForestStudy.unity";
-            if (!File.Exists(archive) && !AssetDatabase.CopyAsset(ScenePath, archive))
-                throw new IOException("Could not back up current AssetValidation before replacing its layout.");
+            ProjectBackups.PreserveAsset(ScenePath, "BeforeForestStudy");
 
             var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             scene.name = "AssetValidation";
@@ -52,7 +50,6 @@ namespace EchoesOfTheFog.Editor
         {
             Directory.CreateDirectory(Output + "/Materials");
             Directory.CreateDirectory(Output + "/Meshes");
-            Directory.CreateDirectory("Assets/Game/Scenes/Archive");
             Directory.CreateDirectory("Logs/ForestEntryStudy");
             AssetDatabase.Refresh();
         }

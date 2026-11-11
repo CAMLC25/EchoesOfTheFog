@@ -23,12 +23,10 @@ namespace EchoesOfTheFog.Editor
         {
             if (!Application.isBatchMode) throw new InvalidOperationException("Run setup in batch mode with the Editor closed.");
             Directory.CreateDirectory("Assets/Game/Prefabs/Player");
-            Directory.CreateDirectory("Assets/Game/Scenes/Archive");
             Directory.CreateDirectory("Logs/Phase2");
             Directory.CreateDirectory(DataPath);
             AssetDatabase.Refresh();
-            string backup = "Assets/Game/Scenes/Archive/AssetValidation_BeforePlayer.unity";
-            if (!File.Exists(backup) && !AssetDatabase.CopyAsset(MapPath, backup)) throw new IOException("Could not preserve pre-Player scene.");
+            ProjectBackups.PreserveAsset(MapPath, "BeforePhase2Setup");
             ConfigureInput();
             int layer = EnsurePlayerLayer();
             BuildPrefab(layer);

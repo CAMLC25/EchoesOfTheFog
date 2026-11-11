@@ -1,4 +1,5 @@
 using EchoesOfTheFog.Core;
+using EchoesOfTheFog.Combat;
 using UnityEngine;
 
 namespace EchoesOfTheFog.Player
@@ -25,6 +26,7 @@ namespace EchoesOfTheFog.Player
         private PlayerCameraRig view;
         private PlayerStamina stamina;
         private Health health;
+        private HitscanRifle rifle;
         private Vector3 previousPosition;
         private readonly RaycastHit[] groundHits = new RaycastHit[12];
 
@@ -32,12 +34,14 @@ namespace EchoesOfTheFog.Player
         public bool IsSprinting { get; private set; }
         public float WalkSpeed => walkSpeed;
         public float RunSpeed => runSpeed;
+        public float JumpSpeed => Mathf.Sqrt(2f * Mathf.Abs(Physics.gravity.y) * jumpHeight);
 
         private void Awake()
         {
             body = GetComponent<Rigidbody>(); capsule = GetComponent<CapsuleCollider>();
             input = GetComponent<PlayerInputReader>(); view = GetComponent<PlayerCameraRig>();
             stamina = GetComponent<PlayerStamina>(); health = GetComponent<Health>();
+            rifle = GetComponent<HitscanRifle>();
             previousPosition = body.position;
         }
 
@@ -69,7 +73,8 @@ namespace EchoesOfTheFog.Player
             Vector2 move = input.Move;
             Quaternion yaw = Quaternion.Euler(0, view.Yaw, 0);
             Vector3 wish = yaw * new Vector3(move.x, 0, move.y);
-            bool wantsSprint = IsGrounded && input.SprintHeld && !view.IsAiming && move.sqrMagnitude > 0.01f && stamina.CanSprint;
+            bool faceCamera = view.IsAiming || (rifle != null && rifle.IsInFirePose);
+            bool wantsSprint = IsGrounded && input.SprintHeld && !faceCamera && move.sqrMagnitude > 0.01f && stamina.CanSprint;
             IsSprinting = wantsSprint && actualSpeed > walkSpeed + 0.15f;
             stamina.Tick(IsSprinting, Time.fixedDeltaTime);
             float speed = view.IsAiming ? aimSpeed : wantsSprint ? runSpeed : walkSpeed;
@@ -93,14 +98,14 @@ namespace EchoesOfTheFog.Player
             if (input.ConsumeJump() && IsGrounded)
             {
                 var velocity = body.linearVelocity;
-                velocity.y = Mathf.Sqrt(2f * Mathf.Abs(Physics.gravity.y) * jumpHeight);
+                velocity.y = JumpSpeed;
                 body.linearVelocity = velocity;
                 IsGrounded = false;
                 IsSprinting = false;
             }
-            if (view.IsAiming || wish.sqrMagnitude > 0.01f)
+            if (faceCamera || wish.sqrMagnitude > 0.01f)
             {
-                Quaternion target = view.IsAiming ? yaw : Quaternion.LookRotation(wish);
+                Quaternion target = faceCamera ? yaw : Quaternion.LookRotation(wish);
                 body.MoveRotation(Quaternion.RotateTowards(body.rotation, target, turnDegreesPerSecond * Time.fixedDeltaTime));
             }
         }

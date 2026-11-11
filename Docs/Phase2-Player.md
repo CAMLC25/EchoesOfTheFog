@@ -1,5 +1,7 @@
 # Phase 2 — Player capsule và camera
 
+> Visual hiện dùng Elena cùng animation và súng; Rigidbody/collider vẫn là capsule của Phase 2. Xem [Player-Animations-Rifle.md](Player-Animations-Rifle.md) cho điều khiển và kiểm thử mới nhất.
+
 ## Chạy thử
 
 Mở `Assets/Game/Scenes/AssetValidation.unity`, nhấn Play, click vào Game View.
@@ -47,7 +49,7 @@ Giá trị prototype trong Inspector: đi 2.5 m/s, chạy 5.2 m/s, ngắm 1.8 m/
 
 ## Bảo toàn scene
 
-Scene trước khi thêm Player: `Assets/Game/Scenes/Archive/AssetValidation_BeforePlayer.unity`. Không dựng lại environment hoặc sửa asset Flooded Grounds trong Phase 2. Các sửa cây/material/Scene_A có sẵn từ người dùng được giữ.
+Scene trước khi thêm Player ban đầu lưu ở `Assets/Game/Scenes/Archive/AssetValidation_BeforePlayer.unity`. Sau đợt dọn project, bản này nằm trong `.utmp/Backups/Cleanup20261111/Assets/Game/Scenes/Archive/`; xem [Project-Cleanup.md](Project-Cleanup.md). Không dựng lại environment hoặc sửa asset Flooded Grounds trong Phase 2. Các sửa cây/material/Scene_A có sẵn từ người dùng được giữ.
 
 Object NavMesh đang tắt trong scene khi bắt đầu Phase 2; Player Rigidbody không cần NavMesh. Test walkthrough chỉ bật object đó trong phiên Play Mode để kiểm tra đường đi, không lưu việc bật lại vào scene.
 
