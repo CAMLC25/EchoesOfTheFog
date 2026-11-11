@@ -1,5 +1,7 @@
 # Phase 1 — Foundation
 
+> Cập nhật sau Phase 1: AssetValidation đã được dựng lại thành đoạn rừng–cổng làng theo yêu cầu người dùng. Bãi thử cũ được lưu trong Scenes/Archive. Xem [AssetValidation-ForestStudy.md](AssetValidation-ForestStudy.md) để biết nội dung scene hiện tại; các mô tả bãi thử bên dưới là hồ sơ Phase 1 ban đầu.
+
 ## Baseline kỹ thuật
 
 - Unity **6000.3.26f1**, Windows, Built-in Render Pipeline.

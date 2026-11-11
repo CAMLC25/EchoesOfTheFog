@@ -1,0 +1,7 @@
+{
+  "name": "EchoesOfTheFog.PlayModeTests",
+  "rootNamespace": "EchoesOfTheFog.Tests",
+  "references": ["EchoesOfTheFog.Runtime", "Unity.InputSystem", "Unity.InputSystem.TestFramework", "Unity.Cinemachine"],
+  "optionalUnityReferences": ["TestAssemblies"],
+  "autoReferenced": false
+}
