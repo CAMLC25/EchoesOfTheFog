@@ -1,8 +1,10 @@
 # Elena animations and prototype rifle
 
+> The main Forest scene now starts unarmed and unlocks this rifle through an F pickup. Test scenes retain the equipped default. See [Forest-Opening.md](Forest-Opening.md) for the opening flow and objectives.
+
 ## Play
 
-Open `Assets/Game/Scenes/AssetValidation.unity` for the existing forest map, or `Assets/Game/Scenes/CombatTest.unity` for three damageable capsule targets. The forest scenery is unchanged. Both scenes use the updated PlayerCapsule prefab.
+Open `Assets/Game/Scenes/Tests/AssetValidation.unity` for the existing forest map, or `Assets/Game/Scenes/Tests/CombatTest.unity` for three damageable capsule targets. The forest scenery is unchanged. Both scenes use the updated PlayerCapsule prefab.
 
 - WASD: move; Shift: sprint; Space: jump; mouse: orbit.
 - Right mouse: aim. Hold left mouse: fire, up to five shots per second.

@@ -251,7 +251,7 @@ namespace EchoesOfTheFog.Editor
                 if (animator == null || !animator.isHuman) throw new InvalidOperationException("Player needs Elena's Humanoid Animator.");
                 animator.runtimeAnimatorController = controller; animator.applyRootMotion = false;
                 animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
-                animator.Rebind(); animator.Update(0); animator.SetBool("Grounded", true); animator.Play("Grounded", 0, 0); animator.Update(0.1f);
+                animator.Rebind(); animator.Update(0); animator.SetFloat("Armed", 1); animator.SetBool("Grounded", true); animator.Play("Grounded", 0, 0); animator.Update(0.1f);
                 var hand = animator.GetBoneTransform(HumanBodyBones.RightHand);
                 var socket = hand.Find("RifleSocket");
                 if (socket == null)
@@ -298,9 +298,9 @@ namespace EchoesOfTheFog.Editor
 
         private static void CreateCombatScene()
         {
-            const string path = "Assets/Game/Scenes/CombatTest.unity";
+            const string path = "Assets/Game/Scenes/Tests/CombatTest.unity";
             if (File.Exists(path)) return;
-            if (!AssetDatabase.CopyAsset("Assets/Game/Scenes/PlayerTest.unity", path)) throw new IOException("Could not create CombatTest scene.");
+            if (!AssetDatabase.CopyAsset("Assets/Game/Scenes/Tests/PlayerTest.unity", path)) throw new IOException("Could not create CombatTest scene.");
             var scene = EditorSceneManager.OpenScene(path);
             foreach (var position in new[] { new Vector3(0, 1, 8), new Vector3(-2, 1, 13), new Vector3(2, 1, 17) })
             {

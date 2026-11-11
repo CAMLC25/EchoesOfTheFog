@@ -16,15 +16,20 @@ namespace EchoesOfTheFog.Combat
         [SerializeField] private Light muzzleLight;
         private PlayerInputReader input;
         private Health health;
+        private PlayerEquipment equipment;
         private Camera aimCamera;
         private WeaponAmmo ammo;
         private float nextShotTime, reloadFinishTime, effectEndTime;
         private float firePoseEndTime;
 
-        public int Loaded => ammo?.Loaded ?? 0;
-        public int Reserve => ammo?.Reserve ?? 0;
+        public bool IsEquipped => equipment == null || equipment.HasWeapon;
+        public int Loaded => IsEquipped ? ammo?.Loaded ?? 0 : 0;
+        public int Reserve => IsEquipped ? ammo?.Reserve ?? 0 : 0;
+        public int ReserveCapacity => ammo?.ReserveCapacity ?? 0;
+        public bool CanReceiveAmmo => isActiveAndEnabled && IsEquipped && health != null && !health.IsDead && ammo != null && ammo.Reserve < ammo.ReserveCapacity;
+        public int AddReserveAmmo(int amount) => CanReceiveAmmo ? ammo.AddReserve(amount) : 0;
         public bool IsReloading { get; private set; }
-        public bool IsInFirePose => isActiveAndEnabled && input != null && input.CanControl && health != null && !health.IsDead && !IsReloading
+        public bool IsInFirePose => IsEquipped && isActiveAndEnabled && input != null && input.CanControl && health != null && !health.IsDead && !IsReloading
             && ((input.FireHeld && Loaded > 0) || Time.time < firePoseEndTime);
         public float LastDamageHitTime { get; private set; } = -100;
         public event Action ShotFired;
@@ -32,11 +37,12 @@ namespace EchoesOfTheFog.Combat
         private void Awake()
         {
             input = GetComponent<PlayerInputReader>(); health = GetComponent<Health>();
+            equipment = GetComponent<PlayerEquipment>();
             if (config == null || muzzle == null)
             {
                 Debug.LogError("HitscanRifle needs its RifleConfig and muzzle.", this); enabled = false; return;
             }
-            ammo = new WeaponAmmo(config.magazineSize, config.startingReserve);
+            ammo = new WeaponAmmo(config.magazineSize, config.startingReserve, Mathf.Max(config.maximumReserve, config.startingReserve));
         }
 
         private void OnEnable() { if (health != null) health.Died += StopReload; }
@@ -52,7 +58,7 @@ namespace EchoesOfTheFog.Combat
         {
             if (tracer != null) tracer.enabled = Time.time < effectEndTime;
             if (muzzleLight != null) muzzleLight.enabled = Time.time < effectEndTime;
-            if (health.IsDead) return;
+            if (Time.timeScale <= 0 || health.IsDead || !IsEquipped) return;
             if (IsReloading && Time.time >= reloadFinishTime) { ammo.CompleteReload(); IsReloading = false; }
             if (input.ReloadPressed) TryStartReload();
             if (input.FireHeld) TryFire();
@@ -60,13 +66,13 @@ namespace EchoesOfTheFog.Combat
 
         public bool TryStartReload()
         {
-            if (!isActiveAndEnabled || ammo == null || health.IsDead || !input.CanControl || IsReloading || !ammo.CanReload) return false;
+            if (!IsEquipped || !isActiveAndEnabled || ammo == null || health.IsDead || !input.CanControl || IsReloading || !ammo.CanReload) return false;
             IsReloading = true; reloadFinishTime = Time.time + config.reloadDuration; return true;
         }
 
         public bool TryFire()
         {
-            if (!isActiveAndEnabled || ammo == null || health.IsDead || !input.CanControl || IsReloading || Time.time < nextShotTime || Loaded == 0) return false;
+            if (!IsEquipped || !isActiveAndEnabled || ammo == null || health.IsDead || !input.CanControl || IsReloading || Time.time < nextShotTime || Loaded == 0) return false;
             if (aimCamera == null) aimCamera = Camera.main;
             if (aimCamera == null) return false;
             ammo.TryConsume(); nextShotTime = Time.time + config.fireInterval;

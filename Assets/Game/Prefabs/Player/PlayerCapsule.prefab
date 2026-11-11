@@ -19,6 +19,10 @@ GameObject:
   - component: {fileID: 1176497439913012355}
   - component: {fileID: 4892137977257780770}
   - component: {fileID: 1174258350071284583}
+  - component: {fileID: 6084189401594367050}
+  - component: {fileID: 6234191559540178340}
+  - component: {fileID: 9181912711528523852}
+  - component: {fileID: 5836588618978440805}
   m_Layer: 8
   m_Name: PlayerCapsule
   m_TagString: Player
@@ -232,6 +236,68 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: EchoesOfTheFog.Runtime::EchoesOfTheFog.Player.PlayerAnimationDriver
   animator: {fileID: 8311330103701678329}
+--- !u!114 &6084189401594367050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076077167962163446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e6f804db2fdb7b44b68dff86a76ad74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: EchoesOfTheFog.Runtime::EchoesOfTheFog.Player.PlayerNoiseEmitter
+  gunshotRadius: 26
+  sprintRadius: 12
+  footstepInterval: 0.45
+--- !u!114 &6234191559540178340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076077167962163446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30be203676e8b0e449e1061d9e165377, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: EchoesOfTheFog.Runtime::EchoesOfTheFog.Player.PlayerEquipment
+  startEquipped: 1
+  weaponVisual: {fileID: 5971355374813556430}
+--- !u!114 &9181912711528523852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076077167962163446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f0a186b8990cd44489b2ab4ffa2c8b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: EchoesOfTheFog.Runtime::EchoesOfTheFog.Interaction.PlayerInteractor
+  range: 1.8
+  interactableMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  occlusionMask:
+    serializedVersion: 2
+    m_Bits: 4294965503
+--- !u!114 &5836588618978440805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076077167962163446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4161d8ee196fae44da57bbfc00fd11b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: EchoesOfTheFog.Runtime::EchoesOfTheFog.Player.PlayerSupplies
+  medkitCapacity: 3
+  healing: 40
 --- !u!1 &3626998510590461547
 GameObject:
   m_ObjectHideFlags: 0
@@ -2578,6 +2644,11 @@ Transform:
 --- !u!4 &5170877521314706586 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4071740551101017734, guid: 29c937ad7dc76ee4f96a0570a935301c, type: 3}
+  m_PrefabInstance: {fileID: 9170208179088136732}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5971355374813556430 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3286954636301284562, guid: 29c937ad7dc76ee4f96a0570a935301c, type: 3}
   m_PrefabInstance: {fileID: 9170208179088136732}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &6614029123337545127 stripped

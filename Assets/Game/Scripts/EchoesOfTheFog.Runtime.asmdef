@@ -1,6 +1,6 @@
 {
   "name": "EchoesOfTheFog.Runtime",
   "rootNamespace": "EchoesOfTheFog",
-  "references": ["Unity.InputSystem", "Unity.Cinemachine"],
+  "references": ["Unity.InputSystem", "Unity.Cinemachine", "UnityEngine.UI", "Unity.TextMeshPro"],
   "autoReferenced": true
 }

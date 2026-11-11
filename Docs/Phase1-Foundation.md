@@ -52,7 +52,7 @@ Thông số ban đầu để prototype, chưa cân bằng gameplay. Khoảng cá
 
 ## Scene kiểm chứng
 
-`Assets/Game/Scenes/AssetValidation.unity` có camera, đèn, nền/collider, tường kiểm tra, target Health, mẫu đá/cầu/nước của Flooded Grounds và cây placeholder riêng.
+`Assets/Game/Scenes/Tests/AssetValidation.unity` có camera, đèn, nền/collider, tường kiểm tra, target Health, mẫu đá/cầu/nước của Flooded Grounds và cây placeholder riêng.
 
 `ValidationTreePlaceholder.prefab` chỉ là cây blockout bằng primitive, **không phải cây gốc đã sửa**. Chín prefab TreeCreator gốc hiện thiếu mesh/TreeData; muốn khôi phục cần dữ liệu gốc còn nguyên hoặc chọn asset thay thế. Chưa sửa scene demo hoặc ghi đè prefab gốc.
 

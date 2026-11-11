@@ -13,7 +13,7 @@ namespace EchoesOfTheFog.Editor
     // Explicit batch entry point only: never runs automatically on import/domain reload.
     public static class Phase1Validation
     {
-        private const string ScenePath = "Assets/Game/Scenes/AssetValidation.unity";
+        private const string ScenePath = "Assets/Game/Scenes/Tests/AssetValidation.unity";
         private const string PrefabDirectory = "Assets/Game/Prefabs/Environment";
         private const string MaterialDirectory = "Assets/Game/Art/Materials";
 

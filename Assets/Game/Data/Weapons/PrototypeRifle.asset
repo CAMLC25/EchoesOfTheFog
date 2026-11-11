@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: EchoesOfTheFog.Runtime::EchoesOfTheFog.Combat.RifleConfig
   magazineSize: 30
   startingReserve: 90
+  maximumReserve: 180
   fireInterval: 0.2
   reloadDuration: 3.4
   damage: 25

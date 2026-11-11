@@ -3,17 +3,19 @@ using UnityEngine.InputSystem;
 
 namespace EchoesOfTheFog.Player
 {
-    [DisallowMultipleComponent]
+    [DisallowMultipleComponent, DefaultExecutionOrder(-150)]
     public sealed class PlayerInputReader : MonoBehaviour
     {
         [SerializeField] private InputActionAsset actions;
         private InputActionAsset instance;
-        private InputAction move, look, sprint, aim, jump, reload, releaseCursor, captureCursor;
+        private InputAction move, look, sprint, aim, jump, reload, interact, releaseCursor, captureCursor;
         private bool controlsEnabled = true;
         private bool jumpQueued;
         private bool suppressFireUntilRelease;
 
         public bool CursorCaptured { get; private set; }
+        public event System.Action PauseRequested;
+        public bool HasPauseMenu => PauseRequested != null;
         public bool CanControl => isActiveAndEnabled && controlsEnabled && CursorCaptured;
         public Vector2 Move => CanControl ? Vector2.ClampMagnitude(move.ReadValue<Vector2>(), 1f) : Vector2.zero;
         public Vector2 Look => CanControl ? look.ReadValue<Vector2>() : Vector2.zero;
@@ -22,6 +24,9 @@ namespace EchoesOfTheFog.Player
         public bool AimHeld => CanControl && aim.IsPressed();
         public bool FireHeld => CanControl && !suppressFireUntilRelease && captureCursor.IsPressed();
         public bool ReloadPressed => CanControl && reload != null && reload.WasPressedThisFrame();
+        public bool InteractPressed => CanControl && interact != null && interact.WasPressedThisFrame();
+        public bool UseMedkitPressed => CanControl && useMedkit != null && useMedkit.WasPressedThisFrame();
+        private InputAction useMedkit;
 
         private void Awake()
         {
@@ -40,6 +45,14 @@ namespace EchoesOfTheFog.Player
             aim = map.FindAction("Aim", true);
             jump = map.FindAction("Jump", true);
             reload = map.FindAction("Reload", false);
+            interact = map.FindAction("Interact", false);
+            useMedkit = map.FindAction("UseMedkit", false);
+            if (useMedkit == null)
+            {
+                useMedkit = map.AddAction("UseMedkit", InputActionType.Button);
+                useMedkit.AddBinding("<Keyboard>/e");
+                useMedkit.AddBinding("<Gamepad>/dpad/up");
+            }
             jump.performed += OnJump;
             releaseCursor = map.FindAction("ReleaseCursor", true);
             captureCursor = map.FindAction("Attack", true);
@@ -56,7 +69,11 @@ namespace EchoesOfTheFog.Player
         {
             if (instance == null) return;
             if (!captureCursor.IsPressed()) suppressFireUntilRelease = false;
-            if (releaseCursor.WasPressedThisFrame()) SetCursorCaptured(false);
+            if (releaseCursor.WasPressedThisFrame())
+            {
+                if (PauseRequested != null) PauseRequested.Invoke();
+                else SetCursorCaptured(false);
+            }
             else if (!CursorCaptured && controlsEnabled && captureCursor.WasPressedThisFrame()) SetCursorCaptured(true);
         }
 
@@ -87,6 +104,8 @@ namespace EchoesOfTheFog.Player
             controlsEnabled = value;
             if (!value) SetCursorCaptured(false);
         }
+
+        public void SuppressFireUntilRelease() => suppressFireUntilRelease = captureCursor != null && captureCursor.IsPressed();
 
         private void OnApplicationFocus(bool focused)
         {

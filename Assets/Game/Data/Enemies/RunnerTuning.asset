@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9022eb61a60cac247a549106d65e9959, type: 3}
+  m_Name: RunnerTuning
+  m_EditorClassIdentifier: EchoesOfTheFog.Runtime::EchoesOfTheFog.Enemy.RunnerTuning
+  patrolSpeed: 1.4
+  fieldOfView: 120
+  eyeHeight: 1.45
+  targetHeight: 1
+  senseInterval: 0.15
+  repathInterval: 0.25
+  sightMemory: 0.5
+  patrolWait: 1
+  hitStun: 0.35
+  attack1Duration: 1
+  attack2Duration: 1.2
+  attack1Impact: 0.4
+  attack2Impact: 0.45
+  attackArc: 100
+  turnSpeed: 720
+  spawnSnapDistance: 1.5
+  hearingMultiplier: 1

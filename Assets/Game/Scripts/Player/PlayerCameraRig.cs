@@ -18,15 +18,17 @@ namespace EchoesOfTheFog.Player
         [SerializeField] private float normalDistance = 3.6f, aimDistance = 2.3f;
         [SerializeField, Min(0.1f)] private float aimResponse = 10;
         private PlayerInputReader input;
+        private PlayerEquipment equipment;
         private float pitch = 12;
 
         public float Yaw { get; private set; }
         public float Pitch => pitch;
-        public bool IsAiming => input != null && input.AimHeld;
+        public bool IsAiming => input != null && input.AimHeld && (equipment == null || equipment.HasWeapon);
 
         private void Awake()
         {
             input = GetComponent<PlayerInputReader>();
+            equipment = GetComponent<PlayerEquipment>();
             Yaw = transform.eulerAngles.y;
             if (cameraTarget == null || virtualCamera == null || follow == null)
             {

@@ -22,12 +22,14 @@ namespace EchoesOfTheFog.Player
         private void OnGUI()
         {
             if (text == null) text = new GUIStyle(GUI.skin.label) { fontSize = 16, normal = { textColor = Color.white } };
-            GUI.Box(new Rect(16, 16, 380, rifle != null ? 176 : 128), GUIContent.none);
+            bool armed = rifle != null && rifle.IsEquipped;
+            GUI.Box(new Rect(16, 16, 380, armed ? 176 : 128), GUIContent.none);
             GUI.Label(new Rect(28, 24, 330, 24), $"HEALTH  {health.CurrentHealth:0} / {health.MaxHealth:0}", text);
             GUI.Label(new Rect(28, 48, 330, 24), $"STAMINA  {stamina.Current:0} / {stamina.Maximum:0}", text);
             GUI.Label(new Rect(28, 76, 330, 24), "WASD move  |  Shift run  |  Space jump", text);
-            GUI.Label(new Rect(28, 100, 330, 24), "RMB aim  |  Esc releases mouse", text);
-            if (rifle != null)
+            string escapeHint = input.HasPauseMenu ? "Esc pause" : "Esc releases mouse";
+            GUI.Label(new Rect(28, 100, 330, 24), (armed ? "RMB aim  |  " : "F pick up items  |  ") + escapeHint, text);
+            if (armed)
             {
                 GUI.Label(new Rect(28, 124, 350, 24), $"AMMO  {rifle.Loaded} / {rifle.Reserve}" + (rifle.IsReloading ? "  RELOADING..." : ""), text);
                 GUI.Label(new Rect(28, 148, 350, 24), "LMB fire  |  R reload", text);

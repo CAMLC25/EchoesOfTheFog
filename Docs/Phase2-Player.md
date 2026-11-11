@@ -4,7 +4,7 @@
 
 ## Chạy thử
 
-Mở `Assets/Game/Scenes/AssetValidation.unity`, nhấn Play, click vào Game View.
+Mở `Assets/Game/Scenes/Tests/AssetValidation.unity`, nhấn Play, click vào Game View.
 
 | Điều khiển | Chức năng |
 |---|---|
@@ -18,7 +18,7 @@ Mở `Assets/Game/Scenes/AssetValidation.unity`, nhấn Play, click vào Game Vi
 
 Chưa có crouch, súng, animation, enemy hoặc mission. Các action mẫu còn trong Input Actions không đồng nghĩa tính năng đó đã được triển khai. F dành cho tương tác giai đoạn sau; E dành cho hồi máu sau này.
 
-`Assets/Game/Scenes/PlayerTest.unity` là sân thử độc lập với sàn, tường, bậc 0.30 m và vật cản 1 m. Dùng để kiểm tra di chuyển/camera trước khi thử trong rừng.
+`Assets/Game/Scenes/Tests/PlayerTest.unity` là sân thử độc lập với sàn, tường, bậc 0.30 m và vật cản 1 m. Dùng để kiểm tra di chuyển/camera trước khi thử trong rừng.
 
 ## Cấu trúc bàn giao
 

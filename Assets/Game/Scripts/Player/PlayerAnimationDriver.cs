@@ -41,16 +41,18 @@ namespace EchoesOfTheFog.Player
             Vector3 local = transform.InverseTransformDirection(body.linearVelocity) / motor.WalkSpeed;
             animator.SetFloat(MoveX, health.IsDead ? 0 : local.x, 0.12f, Time.deltaTime);
             animator.SetFloat(MoveY, health.IsDead ? 0 : local.z, 0.12f, Time.deltaTime);
+            animator.SetFloat("MoveSpeed", health.IsDead ? 0 : new Vector2(local.x, local.z).magnitude, 0.12f, Time.deltaTime);
             animator.SetBool(Grounded, motor.IsGrounded);
             animator.SetBool(Dead, health.IsDead);
             bool inFirePose = rifle != null && rifle.IsInFirePose;
             bool aiming = view != null && view.IsAiming;
             animator.SetBool("Aiming", aiming || inFirePose);
-            animator.SetFloat("Armed", rifle != null && rifle.isActiveAndEnabled ? 1 : 0);
+            bool armed = rifle != null && rifle.IsEquipped && rifle.isActiveAndEnabled;
+            animator.SetFloat("Armed", armed ? 1 : 0);
             animator.SetFloat("JumpPhase", Mathf.Clamp01(0.5f - body.linearVelocity.y / (2 * motor.JumpSpeed)));
             animator.SetBool(Reloading, rifle != null && rifle.IsReloading);
             if (rifle != null && rifle.IsReloading) animator.ResetTrigger(Fire);
-            float upperWeight = health.IsDead || (!motor.IsGrounded && !aiming && !inFirePose && !(rifle != null && rifle.IsReloading)) ? 0 : 1;
+            float upperWeight = !armed || health.IsDead || (!motor.IsGrounded && !aiming && !inFirePose && !(rifle != null && rifle.IsReloading)) ? 0 : 1;
             animator.SetLayerWeight(1, health.IsDead ? 0 : Mathf.MoveTowards(animator.GetLayerWeight(1), upperWeight, Time.deltaTime * 10));
         }
         private void OnShot() { if (animator != null) animator.SetTrigger(Fire); }

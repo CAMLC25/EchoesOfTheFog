@@ -15,7 +15,7 @@ namespace EchoesOfTheFog.Editor
     public static class Phase2Setup
     {
         public const string PlayerPath = "Assets/Game/Prefabs/Player/PlayerCapsule.prefab";
-        private const string MapPath = "Assets/Game/Scenes/AssetValidation.unity";
+        private const string MapPath = "Assets/Game/Scenes/Tests/AssetValidation.unity";
         private const string InputPath = "Assets/InputSystem_Actions.inputactions";
         private const string DataPath = "Assets/Game/Data/Player";
 
@@ -152,7 +152,7 @@ namespace EchoesOfTheFog.Editor
 
         private static void CreatePlayerTestScene()
         {
-            const string path = "Assets/Game/Scenes/PlayerTest.unity";
+            const string path = "Assets/Game/Scenes/Tests/PlayerTest.unity";
             if (File.Exists(path)) return;
             var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             Box("Floor", new Vector3(0, -0.5f, 6), new Vector3(24, 1, 30));

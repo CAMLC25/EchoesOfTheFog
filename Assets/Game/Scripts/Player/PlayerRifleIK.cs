@@ -19,7 +19,7 @@ namespace EchoesOfTheFog.Player
         {
             animator = GetComponent<Animator>(); view = GetComponentInParent<PlayerCameraRig>();
             rifle = GetComponentInParent<HitscanRifle>(); health = GetComponentInParent<Health>();
-            if (leftHandGrip != null) rifleSocket = leftHandGrip.GetComponentInParent<RifleView>()?.transform.parent;
+            if (leftHandGrip != null) rifleSocket = leftHandGrip.GetComponentInParent<RifleView>(true)?.transform.parent;
         }
 
         private void OnAnimatorIK(int layerIndex)

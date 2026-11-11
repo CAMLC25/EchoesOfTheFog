@@ -218,7 +218,7 @@ namespace EchoesOfTheFog.Tests
         public IEnumerator PlayerWalksFromForestAcrossTimberDeckToVillage()
         {
             var keyboard = InputSystem.AddDevice<Keyboard>(); InputSystem.AddDevice<Mouse>();
-            yield return EditorSceneManager.LoadSceneAsyncInPlayMode("Assets/Game/Scenes/AssetValidation.unity", new LoadSceneParameters(LoadSceneMode.Single));
+            yield return EditorSceneManager.LoadSceneAsyncInPlayMode("Assets/Game/Scenes/Tests/AssetValidation.unity", new LoadSceneParameters(LoadSceneMode.Single));
             // The user hid the navigation object while reviewing the map. Activate it only
             // in this Play Mode instance to obtain a driving path; do not save the scene.
             foreach (var item in Object.FindObjectsByType<Transform>(FindObjectsInactive.Include, FindObjectsSortMode.None))
@@ -277,7 +277,7 @@ namespace EchoesOfTheFog.Tests
         public IEnumerator RestoreTime()
         {
             Time.timeScale = 1; Cursor.lockState = CursorLockMode.None; Cursor.visible = true;
-            var map = SceneManager.GetSceneByPath("Assets/Game/Scenes/AssetValidation.unity");
+            var map = SceneManager.GetSceneByPath("Assets/Game/Scenes/Tests/AssetValidation.unity");
             if (map.isLoaded)
             {
                 SceneManager.SetActiveScene(SceneManager.CreateScene("AfterPlayerMapWalkthrough"));

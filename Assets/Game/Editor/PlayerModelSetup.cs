@@ -83,7 +83,7 @@ namespace EchoesOfTheFog.Editor
         {
             RequireBatch();
             Directory.CreateDirectory("Logs/PlayerModel");
-            EditorSceneManager.OpenScene("Assets/Game/Scenes/AssetValidation.unity");
+            EditorSceneManager.OpenScene("Assets/Game/Scenes/Tests/AssetValidation.unity");
             var camera = Camera.main;
             if (camera == null) throw new InvalidOperationException("No main Player camera.");
             var brain = camera.GetComponent<CinemachineBrain>();

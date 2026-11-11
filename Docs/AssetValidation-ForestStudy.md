@@ -1,6 +1,6 @@
 # AssetValidation — Forest to Blackwood visual study
 
-Scene: `Assets/Game/Scenes/AssetValidation.unity`.
+Scene: `Assets/Game/Scenes/Tests/AssetValidation.unity`.
 
 ## Phạm vi
 

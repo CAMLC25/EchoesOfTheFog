@@ -18,7 +18,7 @@ namespace EchoesOfTheFog.Editor
     {
         private const string Source = "Assets/Flooded_Grounds/";
         private const string Output = "Assets/Game/Art/ForestEntryStudy";
-        private const string ScenePath = "Assets/Game/Scenes/AssetValidation.unity";
+        private const string ScenePath = "Assets/Game/Scenes/Tests/AssetValidation.unity";
         private static readonly Dictionary<string, GameObject> Prefabs = new Dictionary<string, GameObject>();
         private static Transform environment;
         private static System.Random dressing;

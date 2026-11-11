@@ -1,6 +1,6 @@
 {
   "name": "EchoesOfTheFog.Editor",
   "rootNamespace": "EchoesOfTheFog.Editor",
-  "references": ["EchoesOfTheFog.Runtime", "Unity.AI.Navigation", "Unity.InputSystem", "Unity.Cinemachine"],
+  "references": ["EchoesOfTheFog.Runtime", "Unity.AI.Navigation", "Unity.InputSystem", "Unity.Cinemachine", "UnityEngine.UI", "Unity.TextMeshPro"],
   "includePlatforms": ["Editor"]
 }
